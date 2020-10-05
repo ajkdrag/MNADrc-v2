@@ -28,6 +28,29 @@ import random
 import argparse
 
 
+
+
+class AverageMeter(object):
+    """Computes and stores the average and current value"""
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.val = 0
+        self.avg = 0
+        self.sum = 0
+        self.count = 0
+
+    def update(self, val, n=1):
+        self.val = val
+        self.sum += val * n
+        self.count += n
+        self.avg = self.sum / self.count
+
+
+
+
+
 parser = argparse.ArgumentParser(description="MNAD")
 parser.add_argument('--gpus', nargs='+', type=str, help='gpus')
 parser.add_argument('--batch_size', type=int, default=4, help='batch size for training')
@@ -72,11 +95,11 @@ test_folder = args.dataset_path+args.dataset_type+"/testing/frames"
 # Loading dataset
 train_dataset = DataLoader(train_folder, transforms.Compose([
              transforms.ToTensor(),          
-             ]), resize_height=args.h, resize_width=args.w, time_step=args.t_length-1)
+             ]), resize_height=args.h, resize_width=args.w, time_step=args.t_length-1,num_pred = 0)
 
 test_dataset = DataLoader(test_folder, transforms.Compose([
              transforms.ToTensor(),            
-             ]), resize_height=args.h, resize_width=args.w, time_step=args.t_length-1)
+             ]), resize_height=args.h, resize_width=args.w, time_step=args.t_length-1,num_pred = 0)
 
 train_size = len(train_dataset)
 test_size = len(test_dataset)
@@ -131,49 +154,18 @@ for epoch in range(args.epochs):
         optimizer.step()
         
     scheduler.step()
-    model.eval()
-    test_loss = AverageMeter()
-    for j,(imgs) in enumerate(test_batch):
-        
-        imgs = Variable(imgs).cuda()
-        outputs, _, _, m_items, softmax_score_query, softmax_score_memory, separateness_loss, compactness_loss = model.forward(imgs, m_items, True)
-        optimizer.zero_grad()
-        loss_pixel = torch.mean(loss_func_mse(outputs, imgs))
-        loss = loss_pixel + args.loss_compact * compactness_loss + args.loss_separate * separateness_loss
-        test_loss.update(loss.item(),imgs.size(0))
-    if(test_loss.avg < best_test):
-      torch.save(model, os.path.join(log_dir, 'model.pth'))
-      torch.save(m_items, os.path.join(log_dir, 'keys.pt'))
-      best_test = test_loss.avg 
+    
     print('----------------------------------------')
     print('Epoch:', epoch+1)
     print('Loss: Reconstruction {:.6f}/ Compactness {:.6f}/ Separateness {:.6f}'.format(loss_pixel.item(), compactness_loss.item(), separateness_loss.item()))
     print('Memory_items:')
     print(m_items)
     print('----------------------------------------')
-    print(f"Test loss : {test_loss.avg}")
+    print(f'Train loss avg: {train_loss.avg}')
     
 print('Training is finished')
 # Save the model and the memory items
 
     
-
-class AverageMeter(object):
-    """Computes and stores the average and current value"""
-    def __init__(self):
-        self.reset()
-
-    def reset(self):
-        self.val = 0
-        self.avg = 0
-        self.sum = 0
-        self.count = 0
-
-    def update(self, val, n=1):
-        self.val = val
-        self.sum += val * n
-        self.count += n
-        self.avg = self.sum / self.count
-
 
 
