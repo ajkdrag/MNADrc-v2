@@ -24,6 +24,8 @@ from model.final_future_prediction_with_memory_spatial_sumonly_weight_ranking_to
 from sklearn.metrics import roc_auc_score
 from utils import *
 import random
+import wandb
+wandb.init(project="mnad")
 
 import argparse
 
@@ -120,7 +122,7 @@ params = params_encoder + params_decoder
 optimizer = torch.optim.Adam(params, lr = args.lr)
 scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer,T_max =args.epochs)
 model.cuda()
-
+wandb.watch(model)
 
 # Report the training process
 log_dir = os.path.join('./exp', args.dataset_type, args.exp_dir)
@@ -152,6 +154,7 @@ for epoch in range(args.epochs):
           print(f"[{j}] Train loss  {train_loss.avg}")
         loss.backward(retain_graph=True)
         optimizer.step()
+        wandb.log({'Loss': loss, "Compactness Loss": compactness_loss, "Separateness Loss": separateness_loss})
         
     scheduler.step()
     
@@ -164,6 +167,8 @@ for epoch in range(args.epochs):
     print(f'Train loss avg: {train_loss.avg}')
     
 print('Training is finished')
+print(log_dir)
+
 # Save the model and the memory items
 
     
