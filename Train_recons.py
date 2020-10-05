@@ -109,14 +109,14 @@ orig_stdout = sys.stdout
 loss_func_mse = nn.MSELoss(reduction='none')
 
 # Training
-
+best_test = float("inf")
 m_items = F.normalize(torch.rand((args.msize, args.mdim), dtype=torch.float), dim=1).cuda() # Initialize the memory items
 
 for epoch in range(args.epochs):
     labels_list = []
     model.train()
-    
     start = time.time()
+    train_loss = AverageMeter()
     for j,(imgs) in enumerate(train_batch):
         
         imgs = Variable(imgs).cuda()
@@ -124,26 +124,56 @@ for epoch in range(args.epochs):
         optimizer.zero_grad()
         loss_pixel = torch.mean(loss_func_mse(outputs, imgs))
         loss = loss_pixel + args.loss_compact * compactness_loss + args.loss_separate * separateness_loss
+        train_loss.update(loss.item(),imgs.size(0))
+        if(j%100 == 0):
+          print(f"[{j}] Train loss  {train_loss.avg}")
         loss.backward(retain_graph=True)
         optimizer.step()
-        print(loss)
         
     scheduler.step()
-    
+    model.eval()
+    test_loss = AverageMeter()
+    for j,(imgs) in enumerate(test_batch):
+        
+        imgs = Variable(imgs).cuda()
+        outputs, _, _, m_items, softmax_score_query, softmax_score_memory, separateness_loss, compactness_loss = model.forward(imgs, m_items, True)
+        optimizer.zero_grad()
+        loss_pixel = torch.mean(loss_func_mse(outputs, imgs))
+        loss = loss_pixel + args.loss_compact * compactness_loss + args.loss_separate * separateness_loss
+        test_loss.update(loss.item(),imgs.size(0))
+    if(test_loss.avg < best_test):
+      torch.save(model, os.path.join(log_dir, 'model.pth'))
+      torch.save(m_items, os.path.join(log_dir, 'keys.pt'))
+      best_test = test_loss.avg 
     print('----------------------------------------')
     print('Epoch:', epoch+1)
     print('Loss: Reconstruction {:.6f}/ Compactness {:.6f}/ Separateness {:.6f}'.format(loss_pixel.item(), compactness_loss.item(), separateness_loss.item()))
     print('Memory_items:')
     print(m_items)
     print('----------------------------------------')
+    print(f"Test loss : {test_loss.avg}")
     
 print('Training is finished')
 # Save the model and the memory items
-torch.save(model, os.path.join(log_dir, 'model.pth'))
-torch.save(m_items, os.path.join(log_dir, 'keys.pt'))
+
     
-sys.stdout = orig_stdout
-f.close()
+
+class AverageMeter(object):
+    """Computes and stores the average and current value"""
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.val = 0
+        self.avg = 0
+        self.sum = 0
+        self.count = 0
+
+    def update(self, val, n=1):
+        self.val = val
+        self.sum += val * n
+        self.count += n
+        self.avg = self.sum / self.count
 
 
 
