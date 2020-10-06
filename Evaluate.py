@@ -36,16 +36,16 @@ parser.add_argument('--test_batch_size', type=int, default=1, help='batch size f
 parser.add_argument('--h', type=int, default=256, help='height of input images')
 parser.add_argument('--w', type=int, default=256, help='width of input images')
 parser.add_argument('--c', type=int, default=3, help='channel of input images')
-parser.add_argument('--t_length', type=int, default=5, help='length of the frame sequences')
+parser.add_argument('--t_length', type=int, default=2, help='length of the frame sequences')
 parser.add_argument('--fdim', type=int, default=512, help='channel dimension of the features')
 parser.add_argument('--mdim', type=int, default=512, help='channel dimension of the memory items')
 parser.add_argument('--msize', type=int, default=10, help='number of the memory items')
 parser.add_argument('--alpha', type=float, default=0.6, help='weight for the anomality score')
-parser.add_argument('--th', type=float, default=0.01, help='threshold for test updating')
+parser.add_argument('--th', type=float, default=0.015, help='threshold for test updating')
 parser.add_argument('--num_workers', type=int, default=2, help='number of workers for the train loader')
 parser.add_argument('--num_workers_test', type=int, default=1, help='number of workers for the test loader')
 parser.add_argument('--dataset_type', type=str, default='ped2', help='type of dataset: ped2, avenue, shanghai')
-parser.add_argument('--dataset_path', type=str, default='./dataset/', help='directory of data')
+parser.add_argument('--dataset_path', type=str, default='/content/', help='directory of data')
 parser.add_argument('--model_dir', type=str, help='directory of model')
 parser.add_argument('--m_items_dir', type=str, help='directory of model')
 
@@ -70,7 +70,7 @@ test_folder = args.dataset_path+args.dataset_type+"/testing/frames"
 # Loading dataset
 test_dataset = DataLoader(test_folder, transforms.Compose([
              transforms.ToTensor(),            
-             ]), resize_height=args.h, resize_width=args.w, time_step=args.t_length-1)
+             ]), resize_height=args.h, resize_width=args.w, time_step=args.t_length-1,num_pred = 0)
 
 test_size = len(test_dataset)
 
@@ -109,7 +109,7 @@ print('Evaluation of', args.dataset_type)
 # Setting for video anomaly detection
 for video in sorted(videos_list):
     video_name = video.split('/')[-1]
-    labels_list = np.append(labels_list, labels[0][4+label_length:videos[video_name]['length']+label_length])
+    labels_list = np.append(labels_list, labels[0][label_length:videos[video_name]['length']+label_length])
     label_length += videos[video_name]['length']
     psnr_list[video_name] = []
     feature_distance_list[video_name] = []
@@ -123,18 +123,19 @@ model.eval()
 
 for k,(imgs) in enumerate(test_batch):
 
-    if k == label_length-4*(video_num+1):
+    if k == label_length-0*(video_num+1):
+        print(k,label_length)
         video_num += 1
         label_length += videos[videos_list[video_num].split('/')[-1]]['length']
 
     imgs = Variable(imgs).cuda()
 
     outputs, feas, updated_feas, m_items_test, softmax_score_query, softmax_score_memory, _, _, _, compactness_loss = model.forward(imgs[:,0:3*4], m_items_test, False)
-    mse_imgs = torch.mean(loss_func_mse((outputs[0]+1)/2, (imgs[0,3*4:]+1)/2)).item()
+    mse_imgs = torch.mean(loss_func_mse((outputs[0]+1)/2, (imgs[0]+1)/2)).item()
     mse_feas = compactness_loss.item()
     
     # Calculating the threshold for updating at the test time
-    point_sc = point_score(outputs, imgs[:,3*4:])
+    point_sc = point_score(outputs, imgs)
 
     if  point_sc < args.th:
         query = F.normalize(feas, dim=1)
