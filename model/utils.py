@@ -56,7 +56,7 @@ class DataLoader(data.Dataset):
         videos = glob.glob(os.path.join(self.dir, '*'))
         for video in sorted(videos):
             video_name = video.split('/')[-1]
-            for i in range(len(self.videos[video_name]['frame'])-self._time_step):
+            for i in range(len(self.videos[video_name]['frame'])):   #-self._time_step not needed for recons
                 frames.append(self.videos[video_name]['frame'][i])
                            
         return frames               
