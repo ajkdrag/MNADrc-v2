@@ -154,10 +154,9 @@ for epoch in range(args.epochs):
           print(f"[{j}] Train loss  {train_loss.avg}")
         loss.backward(retain_graph=True)
         optimizer.step()
-        torch.save(model, os.path.join(log_dir, 'model.pth'))
-        torch.save(m_items, os.path.join(log_dir, 'keys.pt'))
         wandb.log({'Loss': loss, "Compactness Loss": compactness_loss, "Separateness Loss": separateness_loss})
-        
+    torch.save(model, os.path.join(log_dir, 'model.pth'))
+    torch.save(m_items, os.path.join(log_dir, 'keys.pt'))
     scheduler.step()
     
     print('----------------------------------------')
