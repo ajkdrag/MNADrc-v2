@@ -156,7 +156,9 @@ for epoch in range(args.epochs):
         loss.backward(retain_graph=True)
         optimizer.step()
         wandb.log({'Loss': loss,})
-    torch.save(model, os.path.join(log_dir, 'model.pth'))
+        if(epoch%5 == 0):
+          torch.save(model, os.path.join(log_dir, f'{epoch}_model.pth'))      
+    
     # torch.save(m_items, os.path.join(log_dir, 'keys.pt'))
     scheduler.step()
     
@@ -167,7 +169,7 @@ for epoch in range(args.epochs):
     print(m_items)
     print('----------------------------------------')
     print(f'Train loss avg: {train_loss.avg}')
-torch.save(model, os.path.join(log_dir, 'model.pth'))
+torch.save(model, os.path.join(log_dir, '{epoch}_model.pth'))
 print('Training is finished')
 print(log_dir)
 
