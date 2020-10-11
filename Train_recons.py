@@ -152,7 +152,7 @@ for epoch in range(args.epochs):
           print(f"[{j}] Train loss  {train_loss.avg}")
         loss.backward(retain_graph=True)
         optimizer.step()
-        wandb.log({'train_loss_avg': train_loss.avg,'Loss': loss, "Compactness Loss": compactness_loss, "Separateness Loss": separateness_loss})
+        wandb.log({'Train_loss_avg': train_loss.avg,'Loss': loss, "Compactness Loss": compactness_loss, "Separateness Loss": separateness_loss})
     if(epoch%5 == 0):
         torch.save(model, os.path.join(log_dir, f'{epoch}_model.pth'))
         torch.save(m_items, os.path.join(log_dir, f'{epoch}_keys.pt'))
