@@ -128,9 +128,7 @@ wandb.watch(model)
 log_dir = os.path.join('./exp', args.dataset_type, args.exp_dir)
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
-orig_stdout = sys.stdout
-# f = open(os.path.join(log_dir, 'log.txt'),'w')
-# sys.stdout= f
+
 loss_func_mse = nn.MSELoss(reduction='none')
 
 # Training
@@ -154,9 +152,10 @@ for epoch in range(args.epochs):
           print(f"[{j}] Train loss  {train_loss.avg}")
         loss.backward(retain_graph=True)
         optimizer.step()
-        wandb.log({'Loss': loss, "Compactness Loss": compactness_loss, "Separateness Loss": separateness_loss})
-    torch.save(model, os.path.join(log_dir, 'model.pth'))
-    torch.save(m_items, os.path.join(log_dir, 'keys.pt'))
+        wandb.log({'train_loss_avg': train_loss.avg,'Loss': loss, "Compactness Loss": compactness_loss, "Separateness Loss": separateness_loss})
+    if(epoch%5 == 0):
+        torch.save(model, os.path.join(log_dir, f'{epoch}_model.pth'))
+        torch.save(m_items, os.path.join(log_dir, f'{epoch}_keys.pt'))
     scheduler.step()
     
     print('----------------------------------------')
@@ -166,7 +165,10 @@ for epoch in range(args.epochs):
     print(m_items)
     print('----------------------------------------')
     print(f'Train loss avg: {train_loss.avg}')
-    
+
+torch.save(model, os.path.join(log_dir, f'{epoch}_model.pth'))
+torch.save(m_items, os.path.join(log_dir, f'{epoch}_keys.pt'))
+
 print('Training is finished')
 print(log_dir)
 
