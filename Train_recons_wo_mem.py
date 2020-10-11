@@ -128,9 +128,7 @@ wandb.watch(model)
 log_dir = os.path.join('./exp', args.dataset_type, args.exp_dir)
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
-orig_stdout = sys.stdout
-# f = open(os.path.join(log_dir, 'log.txt'),'w')
-# sys.stdout= f
+
 loss_func_mse = nn.MSELoss(reduction='none')
 
 # Training
@@ -155,18 +153,15 @@ for epoch in range(args.epochs):
           print(f"[{j}] Train loss  {train_loss.avg}")
         loss.backward(retain_graph=True)
         optimizer.step()
-        wandb.log({'Loss': loss,})
-        if(epoch%5 == 0):
-          torch.save(model, os.path.join(log_dir, f'{epoch}_model.pth'))      
-    
-    # torch.save(m_items, os.path.join(log_dir, 'keys.pt'))
+        wandb.log({'Train_loss_avg':train_loss.avg ,'Loss': loss})
+            
+    if(epoch%5 == 0):
+          torch.save(model, os.path.join(log_dir, f'{epoch}_model.pth'))  
     scheduler.step()
     
     print('----------------------------------------')
     print('Epoch:', epoch+1)
     print('Loss: Reconstruction {:.6f}'.format(loss_pixel.item()))
-    print('Memory_items:')
-    print(m_items)
     print('----------------------------------------')
     print(f'Train loss avg: {train_loss.avg}')
 torch.save(model, os.path.join(log_dir, '{epoch}_model.pth'))
