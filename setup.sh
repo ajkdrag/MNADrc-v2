@@ -6,5 +6,7 @@ pip install matplotlib --ignore-installed certifi
 pip install opencv-python
 pip install scikit-learn
 pip install wandb
-wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1_oHxf3VaI1Xt1aOUzAnCa180Ha-uYSpl' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1_oHxf3VaI1Xt1aOUzAnCa180Ha-uYSpl" -O ped2.tar.gz && rm -rf /tmp/cookies.txt
-tar -xzvf ped2.tar.gz
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=17dvOb-t3fIfV1--BW83z1fYaATC9L7hF' -O- | sed -rn 's/.confirm=([0-9A-Za-z_]+)./\1\n/p')&id=17dvOb-t3fIfV1--BW83z1fYaATC9L7hF" -O avenue.tar.gz && rm -rf /tmp/cookies.txt
+tar -xzvf avenue.tar.gz
+#wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1_oHxf3VaI1Xt1aOUzAnCa180Ha-uYSpl' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1_oHxf3VaI1Xt1aOUzAnCa180Ha-uYSpl" -O ped2.tar.gz && rm -rf /tmp/cookies.txt
+#tar -xzvf ped2.tar.gz
