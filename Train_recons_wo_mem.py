@@ -164,7 +164,7 @@ for epoch in range(args.epochs):
     print('Loss: Reconstruction {:.6f}'.format(loss_pixel.item()))
     print('----------------------------------------')
     print(f'Train loss avg: {train_loss.avg}')
-torch.save(model, os.path.join(log_dir, '{epoch}_model.pth'))
+torch.save(model, os.path.join(log_dir, f'{epoch}_model.pth'))
 print('Training is finished')
 print(log_dir)
 
