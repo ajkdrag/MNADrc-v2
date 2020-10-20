@@ -1,6 +1,7 @@
 apt-get install libglib2.0-0 -y
 apt install libgl1-mesa-glx -y
 apt install wget
+apt install nano
 pip install --upgrade pip 
 pip install matplotlib --ignore-installed certifi
 pip install opencv-python
