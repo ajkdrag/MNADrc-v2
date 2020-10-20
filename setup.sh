@@ -7,6 +7,7 @@ pip install opencv-python
 pip install scikit-learn
 pip install wandb
 pip install gdown
+pip install multiprocessing
 
 gdown https://drive.google.com/uc?id=1KNuNJTyRi2F5A3Mwg1Egp6QyHwtDcROr
 tar -xzvf shanghaitech.tar.gz
