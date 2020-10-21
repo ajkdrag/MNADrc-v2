@@ -95,13 +95,13 @@ class Decoder(torch.nn.Module):
         self.moduleConv = Basic(1024, 512)
         self.moduleUpsample4 = Upsample(512, 256)
 
-        self.moduleDeconv3 = Basic(512, 256)
+        self.moduleDeconv3 = Basic(256, 256)
         self.moduleUpsample3 = Upsample(256, 128)
 
-        self.moduleDeconv2 = Basic(256, 128)
+        self.moduleDeconv2 = Basic(128, 128)
         self.moduleUpsample2 = Upsample(128, 64)
 
-        self.moduleDeconv1 = Gen(128,n_channel,64)
+        self.moduleDeconv1 = Gen(64,n_channel,64)
         
         
         
@@ -110,17 +110,17 @@ class Decoder(torch.nn.Module):
         tensorConv = self.moduleConv(x)
 
         tensorUpsample4 = self.moduleUpsample4(tensorConv)
-        cat4 = torch.cat((skip3, tensorUpsample4), dim = 1)
+        # cat4 = torch.cat((skip3, tensorUpsample4), dim = 1)
         
-        tensorDeconv3 = self.moduleDeconv3(cat4)
+        tensorDeconv3 = self.moduleDeconv3(tensorUpsample4)
         tensorUpsample3 = self.moduleUpsample3(tensorDeconv3)
-        cat3 = torch.cat((skip2, tensorUpsample3), dim = 1)
+        # cat3 = torch.cat((skip2, tensorUpsample3), dim = 1)
         
-        tensorDeconv2 = self.moduleDeconv2(cat3)
+        tensorDeconv2 = self.moduleDeconv2(tensorUpsample3)
         tensorUpsample2 = self.moduleUpsample2(tensorDeconv2)
-        cat2 = torch.cat((skip1, tensorUpsample2), dim = 1)
+        # cat2 = torch.cat((skip1, tensorUpsample2), dim = 1)
         
-        output = self.moduleDeconv1(cat2)
+        output = self.moduleDeconv1(tensorUpsample2)
 
                 
         return output
