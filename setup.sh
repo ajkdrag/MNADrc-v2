@@ -13,6 +13,7 @@ pip install gdown
 gdown https://drive.google.com/uc?id=1KNuNJTyRi2F5A3Mwg1Egp6QyHwtDcROr
 tar -xzvf shanghaitech.tar.gz
 rm shanghaitech.tar.gz
+mv ./data/frame_labels_shanghai.npy ./data/frame_labels_shanghaitech.npy
 
 #gdown https://drive.google.com/uc?id=17dvOb-t3fIfV1--BW83z1fYaATC9L7hF
 #tar -xzvf avenue.tar.gz
