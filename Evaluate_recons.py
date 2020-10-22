@@ -86,7 +86,7 @@ m_items = torch.load(args.m_items_dir)
 
 
 labels = np.load('./data/frame_labels_'+args.dataset_type+'.npy')
-if args.dataset_type == 'shanghai':
+if args.dataset_type == 'shanghaitech':
     labels = np.expand_dims(labels, 0)
 
 videos = OrderedDict()
