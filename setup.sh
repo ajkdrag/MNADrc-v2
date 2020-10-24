@@ -10,7 +10,7 @@ pip install wandb
 pip install gdown
 
 
-gdown https://drive.google.com/uc?id=1KNuNJTyRi2F5A3Mwg1Egp6QyHwtDcROr
+gdown https://drive.google.com/uc?id=1UfVVdUFEYG30Zx_9YLQdfKi7aTTM36Cs
 tar -xzvf shanghaitech.tar.gz
 rm shanghaitech.tar.gz
 mv ./data/frame_labels_shanghai.npy ./data/frame_labels_shanghaitech.npy
