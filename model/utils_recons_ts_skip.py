@@ -5,7 +5,7 @@ import glob
 import cv2
 import torch.utils.data as data
 from skimage.util import random_noise
-
+from natsort import natsorted
 rng = np.random.RandomState(2020)
 
 def np_load_frame(filename, resize_height, resize_width, idx):
@@ -49,7 +49,7 @@ class DataLoader(data.Dataset):
             self.videos[video_name] = {}
             self.videos[video_name]['path'] = video
             self.videos[video_name]['frame'] = glob.glob(os.path.join(video, '*.jpg'))
-            self.videos[video_name]['frame'].sort()
+            self.videos[video_name]['frame'] = natsorted(self.videos[video_name]['frame'])
             self.videos[video_name]['length'] = len(self.videos[video_name]['frame'])
             
             
