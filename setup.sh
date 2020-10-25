@@ -8,6 +8,7 @@ pip install opencv-python
 pip install scikit-learn
 pip install wandb
 pip install gdown
+pip install natsort
 
 
 gdown https://drive.google.com/uc?id=1UfVVdUFEYG30Zx_9YLQdfKi7aTTM36Cs
