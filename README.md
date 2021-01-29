@@ -33,6 +33,7 @@ python Train.py # for training
 python Train.py --gpus 1 --dataset_path 'your_dataset_directory' --dataset_type avenue --exp_dir 'your_log_directory'
 ```
 ## wandb metric logs:
+* Please filter by tags to find relevant logs. All runs on which scores have been benchmarked and reported are tagged. If a run is missing tags, we probably did not use the results from that run in our report. 
 * Reconstruction task: https://wandb.ai/alchemi5t/mnad
 * Prediction task:  https://wandb.ai/kevins99/mnad
 
