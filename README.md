@@ -34,6 +34,7 @@ python Train.py --gpus 1 --dataset_path 'your_dataset_directory' --dataset_type 
 ```
 ## wandb metric logs:
 * Please filter by tags to find relevant logs. All runs on which scores have been benchmarked and reported are tagged. If a run is missing tags, we probably did not use the results from that run in our report. 
+* Folders without expilicit dataset name are from ped2, i.e., ShanghaiTech and CUHK avenue models have explicit mentions of the dataset name in the folder. 
 * Reconstruction task: https://wandb.ai/alchemi5t/mnad
 * Prediction task:  https://wandb.ai/kevins99/mnad
 
