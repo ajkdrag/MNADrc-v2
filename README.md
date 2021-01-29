@@ -1,5 +1,5 @@
-## THIS IS OUR REIMPLEMETATION SUBMISSION FOR ML Reproducibility Challenge 2020
-# PyTorch *RE*implementation of "Learning Memory-guided Normality for Anomaly Detection"
+# THIS IS OUR REIMPLEMETATION SUBMISSION FOR ML Reproducibility Challenge 2020
+## PyTorch *RE*implementation of "Learning Memory-guided Normality for Anomaly Detection"
 
 <p align="center"><img src="./MNAD_files/overview.png" alt="no_image" width="40%" height="40%" /><img src="./MNAD_files/teaser.png" alt="no_image" width="60%" height="60%" /></p>
 This is the implementation of the paper "Learning Memory-guided Normality for Anomaly Detection (CVPR 2020)".
