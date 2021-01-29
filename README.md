@@ -1,4 +1,4 @@
-# PyTorch implementation of "Learning Memory-guided Normality for Anomaly Detection"
+# PyTorch *RE*implementation of "Learning Memory-guided Normality for Anomaly Detection"
 
 <p align="center"><img src="./MNAD_files/overview.png" alt="no_image" width="40%" height="40%" /><img src="./MNAD_files/teaser.png" alt="no_image" width="60%" height="60%" /></p>
 This is the implementation of the paper "Learning Memory-guided Normality for Anomaly Detection (CVPR 2020)".
@@ -32,9 +32,14 @@ python Train.py # for training
 python Train.py --gpus 1 --dataset_path 'your_dataset_directory' --dataset_type avenue --exp_dir 'your_log_directory'
 ```
 
-## Pre-trained model and memory items
+## Pre-trained model and memory items {*Reimplemented models available here*}
 * Download our pre-trained model and memory items <br>Link: [[model and items](https://drive.google.com/file/d/11f65puuljkUa0Z4W0VtkF_2McphS02fq/view?usp=sharing)]
 * Note that, these are from training with the Ped2 dataset
+
+## Reimplementation models on all datasets:
+* Download benchmark and ablation study models<br>Link:(https://drive.google.com/drive/folders/1QPgl53Iv1u-m8KcevQLBYWbuGEWB1Ky_?usp=sharing)
+* Download memory distribution supervision models<br>Link:(https://drive.google.com/drive/folders/1_k2xfV0rFZOMYRTs9tX55-3quwcZMYIU?usp=sharing)
+
 
 ## Evaluation
 * Test the model with our pre-trained model and memory items
