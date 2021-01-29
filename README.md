@@ -1,3 +1,4 @@
+## THIS IS OUR REIMPLEMETATION SUBMISSION FOR ML Reproducibility Challenge 2020
 # PyTorch *RE*implementation of "Learning Memory-guided Normality for Anomaly Detection"
 
 <p align="center"><img src="./MNAD_files/overview.png" alt="no_image" width="40%" height="40%" /><img src="./MNAD_files/teaser.png" alt="no_image" width="60%" height="60%" /></p>
@@ -31,6 +32,9 @@ python Train.py # for training
 ```bash
 python Train.py --gpus 1 --dataset_path 'your_dataset_directory' --dataset_type avenue --exp_dir 'your_log_directory'
 ```
+## wandb metric logs:
+* Reconstruction task: https://wandb.ai/alchemi5t/mnad
+* Prediction task:  https://wandb.ai/kevins99/mnad
 
 ## Pre-trained model and memory items {*Reimplemented models available here*}
 * Download our pre-trained model and memory items <br>Link: [[model and items](https://drive.google.com/file/d/11f65puuljkUa0Z4W0VtkF_2McphS02fq/view?usp=sharing)]
