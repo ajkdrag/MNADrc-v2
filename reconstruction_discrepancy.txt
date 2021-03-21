@@ -1,0 +1,26 @@
+Authors' code:
+File Name: model/Reconstruction.py 
+self.moduleConv = Basic(1024, 512)
+self.moduleUpsample4 = Upsample(512, 512)
+
+self.moduleDeconv3 = Basic(512, 256)
+self.moduleUpsample3 = Upsample(256, 256)
+
+self.moduleDeconv2 = Basic(256, 128)
+self.moduleUpsample2 = Upsample(128, 128)
+
+self.moduleDeconv1 = Gen(128,n_channel,64)
+
+Our code:
+File Name: model/Reconstruction_model.py
+
+self.moduleConv = Basic(1024, 512)
+self.moduleUpsample4 = Upsample(512, 256)
+
+self.moduleDeconv3 = Basic(256, 256)
+self.moduleUpsample3 = Upsample(256, 128)
+
+self.moduleDeconv2 = Basic(128, 128)
+self.moduleUpsample2 = Upsample(128, 64)
+
+self.moduleDeconv1 = Gen(64,n_channel,64)
