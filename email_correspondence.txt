@@ -6,12 +6,12 @@ We have followed yout method, sampled the features with suitable slicing and vis
 Please help us out with the same. 
 
 Regards, 
-Kevin Stephen
+XXX
 ᐧ
 
 On Mon, Oct 26, 2020 at 6:56 AM "­박현종(대학원/일반대학원 전기전자공학과)" <hyunpark@yonsei.ac.kr> wrote:
 
-    Hi Kevin,
+    Hi XXX,
 
     Sorry for the late reply.
     Yes, there are totally 274,515 frames in the ShanghaiTech dataset.
@@ -22,7 +22,7 @@ On Mon, Oct 26, 2020 at 6:56 AM "­박현종(대학원/일반대학원 전기전
     Best,
     Hyunjong Park
 
->     2020. 10. 20. 오후 7:40, Kevin Stephen <kevinstephen99@gmail.com> 작성:
+>     2020. 10. 20. 오후 7:40, XXX <XXX> 작성:
 >
 >     Hi Hyunjong,
 >
@@ -31,13 +31,13 @@ On Mon, Oct 26, 2020 at 6:56 AM "­박현종(대학원/일반대학원 전기전
 >     If so, we will continue with our experiments on this dataset.
 >
 >     Regards,
->     Kevin Stephen
+>     XXX
 >
 >     ᐧ
 >
 >     On Mon, Oct 12, 2020 at 1:00 PM "­박현종(대학원/일반대학원 전기전자공학과)" <hyunpark@yonsei.ac.kr> wrote:
 >
->         Hi Kevin,
+>         Hi XXX,
 >
 >
 >
@@ -48,7 +48,7 @@ On Mon, Oct 26, 2020 at 6:56 AM "­박현종(대학원/일반대학원 전기전
 >         Hyunjong Park
 >
 >
->>         2020. 10. 12. 오전 6:36, Kevin Stephen <kevinstephen99@gmail.com> 작성:
+>>         2020. 10. 12. 오전 6:36, XXX <XXX> 작성:
 >>
 >>         Hi Hyunjong, 
 >>
@@ -81,7 +81,7 @@ On Mon, Oct 26, 2020 at 6:56 AM "­박현종(대학원/일반대학원 전기전
 >>         If yes, we will go ahead with these values for reporting in the "ML Reproducibility Challenge 2020" along with experiments on the other mentioned datasets.
 >>
 >>         Regards, 
->>         Kevin Stephen
+>>         XXX
 >>
 >>         P. S. These are the best results obtained over multiple training sessions and evaluated with varying values of alpha(lambda in the paper).
 >>
@@ -104,11 +104,11 @@ On Mon, Oct 26, 2020 at 6:56 AM "­박현종(대학원/일반대학원 전기전
 >>             Hyunjong Park
 >>
 >>
->>>             2020. 10. 5. 오전 6:12, Kevin Stephen <kevinstephen99@gmail.com> 작성:
+>>>             2020. 10. 5. 오전 6:12, XXX <XXX> 작성:
 >>>
 >>>             Respected Sirs, 
 >>>
->>>             We, Varun Menon and Kevin Stephen, have taken up the challenge of reproducing the results from your paper “Learning Memory-guided normality for Anomaly Detection” for Paperswithcode’s ML Reproducibility Challenge 2020. The goal of this challenge is not to criticize your paper or your hard work. Science is not a competitive sport. Thus, the main objective of this challenge is to provide a fun learning exercise for newcomers in the Machine Learning field, while contributing to the research by strengthening the quality of the original paper.
+>>>             We, XXX and XXX, have taken up the challenge of reproducing the results from your paper “Learning Memory-guided normality for Anomaly Detection” for Paperswithcode’s ML Reproducibility Challenge 2020. The goal of this challenge is not to criticize your paper or your hard work. Science is not a competitive sport. Thus, the main objective of this challenge is to provide a fun learning exercise for newcomers in the Machine Learning field, while contributing to the research by strengthening the quality of the original paper.
 >>>
 >>>             We would like to open a line of communication with the authors of this work, as per your convenience, in order to help clarify any doubts that may arise and make sure that your work is not misinterpreted by us through the course of this challenge. Please let us know your preferred mode of communication. 
 >>>
@@ -120,8 +120,8 @@ On Mon, Oct 26, 2020 at 6:56 AM "­박현종(대학원/일반대학원 전기전
 >>>             Please get back to us at the earliest as it would help us plan for the future. Thank you for your time and consideration. 
 >>>
 >>>             Sincerely, 
->>>             Kevin Stephen 
+>>>             XXX 
 >>>
 >>>             P. S. Contact us at: 
->>>             Kevin Stephen: kevinstephen99@gmail.com
->>>             Varun Menon: varunkv377@gmail.com
+>>>             XXX: XXX
+>>>             XXX: XXX
