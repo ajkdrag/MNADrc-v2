@@ -1,0 +1,127 @@
+Hi Hyungong, 
+
+I apologise for the late reply as well. 
+Thank you for affirming our doubt. Further, we had a query as to how the memory items were visualised using t-SNE for Fig 6. in the ablation study. 
+We have followed yout method, sampled the features with suitable slicing and visualise the queries generated but get no discernible output. 
+Please help us out with the same. 
+
+Regards, 
+Kevin Stephen
+ᐧ
+
+On Mon, Oct 26, 2020 at 6:56 AM "­박현종(대학원/일반대학원 전기전자공학과)" <hyunpark@yonsei.ac.kr> wrote:
+
+    Hi Kevin,
+
+    Sorry for the late reply.
+    Yes, there are totally 274,515 frames in the ShanghaiTech dataset.
+    We are working on uploading the reconstruction code and we will let you know when the code is uploaded. 
+
+    Thank you.
+
+    Best,
+    Hyunjong Park
+
+>     2020. 10. 20. 오후 7:40, Kevin Stephen <kevinstephen99@gmail.com> 작성:
+>
+>     Hi Hyunjong,
+>
+>     We had a few queries regarding training the model on the ShanghaiTech dataset. Our current plan is to split all the 33 videos into frames and create 2,74,515 frames from the same using a simple OpenCV based script.
+>     Please let us know if this is the same training procedure that your team followed. 
+>     If so, we will continue with our experiments on this dataset.
+>
+>     Regards,
+>     Kevin Stephen
+>
+>     ᐧ
+>
+>     On Mon, Oct 12, 2020 at 1:00 PM "­박현종(대학원/일반대학원 전기전자공학과)" <hyunpark@yonsei.ac.kr> wrote:
+>
+>         Hi Kevin,
+>
+>
+>
+>         We're going to check and upload our codes (model, train, evaluate) for reconstruction task and the models without memory module.
+>         So please reproduce the results with our codes when they're available and let us know how the new results are.
+>
+>         Best,
+>         Hyunjong Park
+>
+>
+>>         2020. 10. 12. 오전 6:36, Kevin Stephen <kevinstephen99@gmail.com> 작성:
+>>
+>>         Hi Hyunjong, 
+>>
+>>         These are the results we obtained on the UCSD Ped2 dataset.
+>>         We were able to reproduce the reported results for the "Without Memory" tasks, but were not able to do so for the "With Memory" tasks.
+>>         For the prediction task with memory, the scores we obtained were within acceptable margin for the prediction task with memory, but the reconstruction task was off by a considerable amount (1.84%).
+>>         	
+>>         Reconstruction With Memory AUC: 88.36%,alpha:0.9 
+>>         	
+>>         Prediction with Memory AUC: 96.34%,alpha:0.62 
+>>   	
+>>         Reconstruction without Memory AUC: 88.84%
+>>         	
+>>         Reconstruction with Memory AUC: 95.54%
+>>
+>>         The changes made in the codebase for each task are as follows:
+>>         1) Prediction with Memory: No changes(Original codebase)
+>>         2) Reconstruction with Memory: t_length set to 2 and num_pred set to 0, i.e, the changes are only made to the DataLoader. The DataLoader now returns 1 image that is used as input and target. 
+>>         Slight changes made in model/utils.py to ensure that we iterate over all samples instead of skipping the last "time step" frames(in get_all_samples function). 
+>>         For the Evaluation script, the script remains unchanged except small changes to ensure that the label list is generated appropriately(line 112: Evaluate.py) and video_num variable has been updated properly(line 126: Evaluate.py).
+>>         Hyperparameters mentioned in the paper were used to train, however, during evaluation we found alpha=0.9 to give us the best result(AUC: 88.36%).
+>>         3) Prediction without Memory: As per your guidance, we replaced the first layer of the decoder with Basic(512, 512). We also use alpha = 1(explained at **).
+>>         In Evaluate.py, these are the changes we made:
+>>          - anomaly_score_total_list += score_sum(anomaly_score_list(psnr_list[video_name]), anomaly_score_list_inv(psnr_list[video_name]), args.alpha)
+>>         ** We just make sure that we pass a list to anomaly_score_list_inv that is the same shape as the list we pass to anomaly_score_list, since we use alpha = 1 the values in anomaly_score_list_inv do not matter as 1 - alpha = 0 and that would nullify the contribution of anomaly_score_list_inv.
+>>         4) Reconstruction without Memory: We implemented the memory related changes as mentioned in 3, along with the reconstruction related changes mentioned in 2.
+>>
+>>         We would like to confirm that these changes made to the codebase are in accordance with your ideas presented in the paper.
+>>         Further, we are wondering about the reason for the difference in the scores we obtained and the reported scores for the "With Memory" experiments. Are these within the expected margin of error through different training sessions?
+>>         If yes, we will go ahead with these values for reporting in the "ML Reproducibility Challenge 2020" along with experiments on the other mentioned datasets.
+>>
+>>         Regards, 
+>>         Kevin Stephen
+>>
+>>         P. S. These are the best results obtained over multiple training sessions and evaluated with varying values of alpha(lambda in the paper).
+>>
+>>
+>>         On Mon, Oct 5, 2020 at 3:43 PM "­박현종(대학원/일반대학원 전기전자공학과)" <hyunpark@yonsei.ac.kr> wrote:
+>>
+>>             Hi,
+>>
+>>             Thanks for your interest in our work.
+>>
+>>             1) We consider the L2 distance for both prediction and reconstruction tasks. If you want to calculate the abnormality score without the memory module, the PSNR is the only way to compute the score. In this case, the decoder needs only the query features and the first conv layer from the decoder should be changed like “self.moduleConv = Basic(512, 512)”.
+>>
+>>             2) Yes, we consider one input image and one output image for the reconstruction task.
+>>
+>>             3) Already replied in the first answer.
+>>
+>>             If you have any other questions, please contact me again.
+>>
+>>             Best, 
+>>             Hyunjong Park
+>>
+>>
+>>>             2020. 10. 5. 오전 6:12, Kevin Stephen <kevinstephen99@gmail.com> 작성:
+>>>
+>>>             Respected Sirs, 
+>>>
+>>>             We, Varun Menon and Kevin Stephen, have taken up the challenge of reproducing the results from your paper “Learning Memory-guided normality for Anomaly Detection” for Paperswithcode’s ML Reproducibility Challenge 2020. The goal of this challenge is not to criticize your paper or your hard work. Science is not a competitive sport. Thus, the main objective of this challenge is to provide a fun learning exercise for newcomers in the Machine Learning field, while contributing to the research by strengthening the quality of the original paper.
+>>>
+>>>             We would like to open a line of communication with the authors of this work, as per your convenience, in order to help clarify any doubts that may arise and make sure that your work is not misinterpreted by us through the course of this challenge. Please let us know your preferred mode of communication. 
+>>>
+>>>             We had a few doubts regarding your work. We would be much obliged if you could help clarify the same for us. 
+>>>             1) In order to calculate the abnormality score for models without the memory module, do you not consider the L2 distance between each query and its nearest item in the score_sum function I.e, do you only consider PSNR for the abnormality score for the reconstruction task? 
+>>>             2) In order to run the model only on the reconstruction task, is the input and output both just 1 image, i.e, Is the MSE computed over 1 input and 1 output both of which are the same image?
+>>>             3) In order to test the model without the memory module, how do we tweak the model architecture? Can we just remove the first conv layer from the decoder, i.e, self.moduleConv = Basic(1024, 512)? 
+>>>
+>>>             Please get back to us at the earliest as it would help us plan for the future. Thank you for your time and consideration. 
+>>>
+>>>             Sincerely, 
+>>>             Kevin Stephen 
+>>>
+>>>             P. S. Contact us at: 
+>>>             Kevin Stephen: kevinstephen99@gmail.com
+>>>             Varun Menon: varunkv377@gmail.com
